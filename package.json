@@ -4,9 +4,6 @@
   "private": true,
   "description": "Bal Halloween Masqué — Dark Elegance · page de réservation B&O Media",
   "scripts": {
-    "start": "serve public -l ${PORT:-3000} -s"
-  },
-  "dependencies": {
-    "serve": "14.2.4"
+    "start": "node server.js"
   }
 }
