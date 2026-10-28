@@ -170,6 +170,21 @@
   .opt .menu { grid-column: 1 / -1; margin-top: 6px; display: flex; flex-direction: column; gap: 3px; }
   .opt .menu span { font-size: 11.5px; line-height: 1.4; color: var(--ink-soft); }
   .opt .menu span b { font-family: "Cinzel", serif; font-weight: 500; font-size: 9px; letter-spacing: 1.5px; color: var(--gold); margin-right: 5px; }
+  .opt.sold-out {
+    cursor: default; opacity: .5;
+    filter: grayscale(.4);
+    border-style: dashed;
+  }
+  .opt.sold-out:hover { border-color: var(--line-soft); background: linear-gradient(180deg, rgba(216,185,130,.045), transparent); }
+  .opt.sold-out:active { transform: none; }
+  .badge-complet {
+    display: inline-block; vertical-align: middle;
+    font-family: "Cinzel", serif; font-weight: 600;
+    font-size: 8.5px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--bg); background: var(--gold-deep);
+    padding: 2px 7px; border-radius: 3px; margin-left: 8px;
+    position: relative; top: -2px;
+  }
 
   .foot { margin-top: 20px; text-align: center; border-top: 1px solid var(--line-soft); padding-top: 16px; }
   .foot .nums { font-family: "Jost", sans-serif; font-size: 12.5px; color: var(--gold); letter-spacing: .5px; }
@@ -458,7 +473,7 @@
   var SALONS = [
     { name: "The Velvet Room", price: "150.000", cap: "04 personnes · 03 bouteilles",
       sale: "mini-sandwichs, mini-feuilletés.",
-      sucre: "mini-tartelettes, mignardises au chocolat." },
+      sucre: "mini-tartelettes, mignardises au chocolat.", soldOut: true },
     { name: "The Noir Suite", price: "300.000", cap: "06 personnes · 05 bouteilles",
       sale: "mini-wraps, feuilletés assortis, bouchées salées.",
       sucre: "mini-éclairs, tartelettes, brownies." },
@@ -498,14 +513,19 @@
 
   SALONS.forEach(function (s) {
     var b = document.createElement("button");
-    b.className = "opt";
+    b.className = "opt" + (s.soldOut ? " sold-out" : "");
     b.type = "button";
     b.innerHTML =
-      '<span class="name">' + s.name + '</span>' +
+      '<span class="name">' + s.name +
+        (s.soldOut ? ' <span class="badge-complet">Complet</span>' : '') + '</span>' +
       '<span class="price">' + s.price + '<small>FCFA</small></span>' +
       '<span class="cap">' + s.cap + '</span>' +
       '<span class="menu">' + menuHTML(s) + '</span>';
-    b.addEventListener("click", function () { openModal(s); });
+    if (s.soldOut) {
+      b.setAttribute("aria-disabled", "true");
+    } else {
+      b.addEventListener("click", function () { openModal(s); });
+    }
     optsEl.appendChild(b);
   });
 
