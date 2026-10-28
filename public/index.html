@@ -207,22 +207,23 @@
   .m-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; width: 100%; padding: 14px 16px; border-radius: 5px; font-family: "Jost", sans-serif; font-weight: 500; font-size: 14px; letter-spacing: .5px; cursor: pointer; border: 1px solid transparent; text-decoration: none; transition: filter .15s, transform .08s; }
   .btn:active { transform: translateY(1px); }
-  .btn-reserve {
-    background: linear-gradient(180deg, var(--gold-bright), var(--gold));
-    color: var(--wa-ink); color: #1b120a;
-    font-family: "Cinzel", serif; font-weight: 600; letter-spacing: 2px; font-size: 12.5px;
-    box-shadow: 0 0 22px -6px rgba(216,185,130,.5);
+  .btn-wa-primary {
+    background: var(--wa); color: var(--wa-ink);
+    font-family: "Cinzel", serif; font-weight: 600; letter-spacing: 1.5px; font-size: 13px;
+    padding: 16px; box-shadow: 0 0 26px -6px rgba(37,211,102,.5);
   }
-  .btn-reserve:hover { filter: brightness(1.05); }
-  .btn-wa {
-    background: transparent; color: var(--wa);
-    border-color: color-mix(in srgb, var(--wa) 45%, transparent);
-    font-size: 13px;
-  }
-  .btn-wa:hover { background: color-mix(in srgb, var(--wa) 10%, transparent); }
+  .btn-wa-primary:hover { filter: brightness(1.06); }
   .btn-ghost { background: transparent; color: var(--ink-soft); border-color: var(--line); font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 15px; }
   .btn-ghost:hover { color: var(--gold); border-color: var(--gold-deep); }
   .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .form-link {
+    background: none; border: none; cursor: pointer;
+    color: var(--ink-soft); font-family: "Jost", sans-serif; font-size: 12px;
+    letter-spacing: .3px; text-decoration: underline; text-underline-offset: 3px;
+    padding: 6px; margin-top: 2px; transition: color .15s;
+  }
+  .form-link:hover { color: var(--gold); }
+  .form-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
   svg { display: block; }
 
@@ -264,19 +265,19 @@
     font-family: "Cinzel", serif; font-weight: 600;
     font-size: 13px; letter-spacing: 6px; color: var(--gold);
     margin: 0;
-    opacity: 0; animation: softIn 1.6s ease-out .8s forwards;
+    opacity: 0; animation: softIn .7s ease-out .25s forwards;
   }
   .intro .i-ams {
     font-family: "Jost", sans-serif; font-weight: 300;
     font-size: 9px; letter-spacing: 4px; color: var(--ink-soft);
     margin: 8px 0 0;
-    opacity: 0; animation: softIn 1.6s ease-out 1.6s forwards;
+    opacity: 0; animation: softIn .7s ease-out .5s forwards;
   }
   .intro .i-title {
     font-family: "Cormorant Garamond", serif; font-weight: 600; font-style: italic;
     font-size: clamp(34px, 11vw, 52px); letter-spacing: 1px;
     color: var(--gold-bright); margin: 26px 0 0; line-height: 1;
-    opacity: 0; animation: titleIn 2.4s ease-out 2.4s forwards;
+    opacity: 0; animation: titleIn 1s ease-out .75s forwards;
     text-shadow: 0 0 34px rgba(216,185,130,.3);
   }
   @keyframes titleIn {
@@ -286,13 +287,13 @@
   .intro .i-line {
     width: 0; height: 1px; margin: 22px auto 0;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    animation: drawLine 1.6s ease-out 4.3s forwards;
+    animation: drawLine .8s ease-out 1.3s forwards;
   }
   @keyframes drawLine { to { width: min(260px, 70%); } }
   .intro .i-sub {
     font-family: "Cinzel", serif; font-size: 10px; letter-spacing: 4px;
     color: var(--gold-deep); margin: 18px 0 0;
-    opacity: 0; animation: softIn 1.8s ease-out 5.2s forwards;
+    opacity: 0; animation: softIn .7s ease-out 1.6s forwards;
   }
   @keyframes softIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -345,17 +346,8 @@
       <div class="rule"></div>
     </header>
     <div class="body">
-      <button class="reserve-cta" id="reserveCta" type="button" aria-expanded="false" aria-controls="salonsPanel">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
-        RÉSERVER MA PLACE
-      </button>
-
-      <div class="reveal-salons" id="salonsPanel">
-        <div>
-          <p class="salon-label">CHOISISSEZ VOTRE SALON</p>
-          <div class="opts" id="opts"></div>
-        </div>
-      </div>
+      <p class="salon-label">CHOISISSEZ VOTRE SALON</p>
+      <div class="opts" id="opts"></div>
 
       <div class="foot">
         <p class="nums">+225 07 49 22 15 21 · +225 07 12 38 14 80</p>
@@ -377,15 +369,12 @@
         <span id="mMsg"></span>
       </div>
       <div class="m-actions">
-        <button class="btn btn-reserve" id="mReserve" type="button">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
-          Réserver ce salon
-        </button>
-        <a class="btn btn-wa" id="mGo" href="#" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 5.82 2.42 8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.47-.01-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05 0 1.21.88 2.38 1 2.54.12.16 1.73 2.64 4.19 3.7.59.25 1.04.4 1.4.52.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
-          Ou réserver via WhatsApp
+        <a class="btn btn-wa-primary" id="mGo" href="#" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 5.82 2.42 8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.47-.01-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05 0 1.21.88 2.38 1 2.54.12.16 1.73 2.64 4.19 3.7.59.25 1.04.4 1.4.52.59.19 1.12.16 1.54.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+          Réserver sur WhatsApp
         </a>
-        <button class="btn btn-ghost" id="mBack" type="button">← Choisir un autre salon</button>
+        <button class="btn btn-ghost" id="mBack" type="button">← Autre salon</button>
+        <button class="form-link" id="mReserve" type="button">ou remplir un formulaire</button>
       </div>
     </div>
   </div>
@@ -456,30 +445,12 @@
 
     if (REDUCE) { finish(); }
     else {
-      setTimeout(finish, 7400);
-      // let guests skip the entrance with a tap once the title has shown
-      setTimeout(function () {
-        intro.style.cursor = "pointer";
-        intro.addEventListener("click", finish);
-        document.addEventListener("keydown", function k(e){ if(e.key==="Enter"||e.key===" "){ finish(); document.removeEventListener("keydown",k);} });
-      }, 2600);
+      setTimeout(finish, 2600);
+      // let guests skip the entrance with a tap immediately
+      intro.style.cursor = "pointer";
+      intro.addEventListener("click", finish);
+      document.addEventListener("keydown", function k(e){ if(e.key==="Enter"||e.key===" "){ finish(); document.removeEventListener("keydown",k);} });
     }
-  })();
-
-  /* ---------- Reserve-my-spot gate ---------- */
-  (function () {
-    var cta = document.getElementById("reserveCta");
-    var panel = document.getElementById("salonsPanel");
-    if (!cta || !panel) return;
-    cta.addEventListener("click", function () {
-      var open = panel.classList.toggle("open");
-      cta.setAttribute("aria-expanded", open ? "true" : "false");
-      if (open) {
-        setTimeout(function () {
-          panel.scrollIntoView({ behavior: REDUCE ? "auto" : "smooth", block: "nearest" });
-        }, 180);
-      }
-    });
   })();
 
   var PHONE = "2250749221521";
