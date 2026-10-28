@@ -185,6 +185,18 @@
     padding: 2px 7px; border-radius: 3px; margin-left: 8px;
     position: relative; top: -2px;
   }
+  .badge-left {
+    display: inline-block; vertical-align: middle;
+    font-family: "Jost", sans-serif; font-weight: 500;
+    font-size: 9px; letter-spacing: .5px;
+    color: #e8b4a0; background: rgba(170,60,40,.18);
+    border: 1px solid rgba(190,80,60,.4);
+    padding: 2px 8px; border-radius: 20px; margin-left: 8px;
+    position: relative; top: -2px;
+    animation: pulseLeft 2.4s ease-in-out infinite;
+  }
+  @keyframes pulseLeft { 0%,100% { opacity: .85; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .badge-left { animation: none; } }
 
   .foot { margin-top: 20px; text-align: center; border-top: 1px solid var(--line-soft); padding-top: 16px; }
   .foot .nums { font-family: "Jost", sans-serif; font-size: 12.5px; color: var(--gold); letter-spacing: .5px; }
@@ -476,13 +488,13 @@
       sucre: "mini-tartelettes, mignardises au chocolat.", soldOut: true },
     { name: "The Noir Suite", price: "300.000", cap: "06 personnes · 05 bouteilles",
       sale: "mini-wraps, feuilletés assortis, bouchées salées.",
-      sucre: "mini-éclairs, tartelettes, brownies." },
+      sucre: "mini-éclairs, tartelettes, brownies.", left: 2 },
     { name: "The Inner Circle", price: "600.000", cap: "08 personnes · 07 bouteilles",
       sale: "mini-burgers, brochettes de poulet, canapés raffinés.",
-      sucre: "assortiment de pâtisseries fines, macarons, fruits frais." },
+      sucre: "assortiment de pâtisseries fines, macarons, fruits frais.", left: 1 },
     { name: "The Phantom Suite", price: "1.000.000", cap: "12 personnes · 10 bouteilles",
       sale: "assortiment premium de canapés, mini-burgers gourmets, brochettes et bouchées raffinées.",
-      sucre: "mignardises premium, macarons, mini-desserts individuels et fruits découpés." }
+      sucre: "mignardises premium, macarons, mini-desserts individuels et fruits découpés.", left: 2 }
   ];
 
   var optsEl = document.getElementById("opts");
@@ -515,9 +527,11 @@
     var b = document.createElement("button");
     b.className = "opt" + (s.soldOut ? " sold-out" : "");
     b.type = "button";
+    var badge = '';
+    if (s.soldOut) badge = ' <span class="badge-complet">Complet</span>';
+    else if (s.left) badge = ' <span class="badge-left">Plus que ' + s.left + (s.left > 1 ? ' salons' : ' salon') + '</span>';
     b.innerHTML =
-      '<span class="name">' + s.name +
-        (s.soldOut ? ' <span class="badge-complet">Complet</span>' : '') + '</span>' +
+      '<span class="name">' + s.name + badge + '</span>' +
       '<span class="price">' + s.price + '<small>FCFA</small></span>' +
       '<span class="cap">' + s.cap + '</span>' +
       '<span class="menu">' + menuHTML(s) + '</span>';
