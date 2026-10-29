@@ -51,7 +51,8 @@
     font-weight: 300;
     font-size: 14px;
     display: grid;
-    place-items: center;
+    justify-items: center;
+    align-items: start;
     min-height: 100%;
   }
   .wrap {
@@ -254,6 +255,79 @@
 
   svg { display: block; }
 
+  /* ---------- Journey ---------- */
+  .journey { padding: 8px 20px 4px; position: relative; z-index: 3; }
+  .jsection { text-align: center; }
+  .j-eyebrow {
+    font-family: "Cinzel", serif; font-size: 10px; letter-spacing: 4px;
+    color: var(--gold-deep); margin: 0 0 14px;
+  }
+  .j-lead {
+    font-family: "Cormorant Garamond", serif; font-size: 18px; line-height: 1.55;
+    color: var(--ink); margin: 0 auto; max-width: 42ch;
+  }
+  .j-lead i { color: var(--gold); font-style: italic; }
+
+  .chapters {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    margin: 30px 0 4px;
+  }
+  @media (max-width: 380px) { .chapters { grid-template-columns: 1fr; } }
+  .chapter {
+    text-align: center; padding: 20px 14px;
+    border: 1px solid var(--line-soft); border-radius: 6px;
+    background: linear-gradient(180deg, rgba(216,185,130,.04), transparent);
+  }
+  .ch-icon {
+    width: 46px; height: 46px; margin: 0 auto 12px;
+    display: grid; place-items: center;
+    border: 1px solid var(--gold-deep); border-radius: 50%;
+    color: var(--gold);
+  }
+  .ch-title {
+    font-family: "Cormorant Garamond", serif; font-weight: 600;
+    font-size: 18px; color: var(--gold-bright); margin: 0 0 7px;
+  }
+  .ch-text { font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); margin: 0; }
+
+  .j-cta-block { text-align: center; margin: 28px 0 6px; }
+  .j-urgency {
+    font-family: "Cormorant Garamond", serif; font-style: italic;
+    font-size: 15px; color: var(--gold); margin: 16px 0 0;
+  }
+
+  /* scroll reveal */
+  .reveal-on-scroll {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity .8s ease-out, transform .8s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal-on-scroll.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* floating reserve shortcut */
+  .float-cta {
+    position: fixed;
+    bottom: max(18px, env(safe-area-inset-bottom, 0px));
+    right: max(18px, env(safe-area-inset-right, 0px));
+    z-index: 40;
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 12px 20px;
+    background: var(--gold); color: #1b120a;
+    font-family: "Cinzel", serif; font-weight: 600; font-size: 12px; letter-spacing: 1.5px;
+    text-decoration: none; border-radius: 40px;
+    box-shadow: 0 8px 28px -8px rgba(0,0,0,.7), 0 0 22px -6px rgba(216,185,130,.5);
+    opacity: 0; transform: translateY(14px); pointer-events: none;
+    transition: opacity .4s ease, transform .4s ease, filter .15s;
+  }
+  .float-cta.show { opacity: 1; transform: none; pointer-events: auto; }
+  .float-cta:hover { filter: brightness(1.06); }
+  .float-cta:active { transform: translateY(1px); }
+  @media (prefers-reduced-motion: reduce) { .float-cta { transition: opacity .3s ease; } }
+  html { scroll-behavior: smooth; }
+  #salons { scroll-margin-top: 20px; }
+
   /* ---------- Cold open / intro ---------- */
   .intro {
     position: fixed; inset: 0; z-index: 60;
@@ -372,7 +446,59 @@
       </p>
       <div class="rule"></div>
     </header>
-    <div class="body">
+
+    <!-- ===== JOURNEY ===== -->
+    <section class="journey">
+      <!-- Le concept -->
+      <div class="jsection concept reveal-on-scroll">
+        <p class="j-eyebrow">UNE NUIT, UN MASQUE</p>
+        <p class="j-lead">Une nuit où l'élégance se pare d'ombre. Derrière chaque masque, une silhouette ; derrière chaque porte, un salon qui n'attend que les vôtres. Le 31 octobre, le Noom devient <i>The Private</i>.</p>
+      </div>
+
+      <!-- L'expérience : chapitres -->
+      <div class="chapters">
+        <div class="chapter reveal-on-scroll">
+          <div class="ch-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 11c0-3 3-5 9-5s9 2 9 5c0 2-1.5 3-3 3-1 0-1.5-.5-2-1.5S17 11 15 11s-2 1-2.5 2S11 15 10 15c-2 0-3-1.5-3-3"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="16.5" cy="10.5" r="1"/></svg>
+          </div>
+          <h3 class="ch-title">Le Bal Masqué</h3>
+          <p class="ch-text">Masque obligatoire. L'anonymat libère, l'élégance oblige. Venez incarner un personnage, pas seulement une tenue.</p>
+        </div>
+
+        <div class="chapter reveal-on-scroll">
+          <div class="ch-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Z"/><circle cx="12" cy="9" r="2.3"/></svg>
+          </div>
+          <h3 class="ch-title">Au Noom Hotel</h3>
+          <p class="ch-text">Boca Chica. Un cadre feutré, pensé pour les cercles restreints — salons privés, service dédié, et l'allure d'une adresse qui sait recevoir.</p>
+        </div>
+
+        <div class="chapter reveal-on-scroll">
+          <div class="ch-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M5 12l3-7h8l3 7M5 12l2 7h10l2-7"/></svg>
+          </div>
+          <h3 class="ch-title">Salons privés</h3>
+          <p class="ch-text">Quatre salons, quatre univers. Du Velvet Room à la Phantom Suite — votre table, vos bouteilles, votre cercle. Rien que les vôtres.</p>
+        </div>
+
+        <div class="chapter reveal-on-scroll">
+          <div class="ch-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <h3 class="ch-title">Sur invitation</h3>
+          <p class="ch-text">Un événement privé. On vient avec son cercle restreint. Les places partent — réservez votre salon avant qu'il ne reste qu'un masque vide.</p>
+        </div>
+      </div>
+
+      <!-- Transition vers la réservation -->
+      <div class="j-cta-block reveal-on-scroll">
+        <div class="rule"></div>
+        <p class="j-urgency">Les salons se réservent. Certains sont déjà complets.</p>
+      </div>
+    </section>
+    <!-- ===== /JOURNEY ===== -->
+
+    <div class="body" id="salons">
       <p class="salon-label">CHOISISSEZ VOTRE SALON</p>
       <div class="opts" id="opts"></div>
 
@@ -383,6 +509,11 @@
     </div>
   </main>
 </div>
+
+<a class="float-cta" id="floatCta" href="#salons">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+  Réserver
+</a>
 
 <div class="scrim" id="scrim" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
@@ -478,6 +609,42 @@
       intro.addEventListener("click", finish);
       document.addEventListener("keydown", function k(e){ if(e.key==="Enter"||e.key===" "){ finish(); document.removeEventListener("keydown",k);} });
     }
+  })();
+
+  /* ---------- Scroll reveal ---------- */
+  (function () {
+    var items = document.querySelectorAll(".reveal-on-scroll");
+    if (REDUCE || !("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* ---------- Floating reserve button ---------- */
+  (function () {
+    var fab = document.getElementById("floatCta");
+    var salons = document.getElementById("salons");
+    if (!fab || !salons) return;
+    function update() {
+      var sc = window.scrollY || document.documentElement.scrollTop;
+      var rect = salons.getBoundingClientRect();
+      // show once scrolled past ~hero, hide when salons are near top of viewport
+      var past = sc > 200;
+      var salonsVisible = rect.top < window.innerHeight * 0.6;
+      fab.classList.toggle("show", past && !salonsVisible);
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    setTimeout(update, 2800);
+    fab.addEventListener("click", function () {
+      fab.classList.remove("show");
+    });
   })();
 
   var PHONE = "2250749221521";
